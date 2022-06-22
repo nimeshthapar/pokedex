@@ -1,11 +1,13 @@
+import { Pokemontypes } from '../model/PokemonDetail';
+
 export type HomeStackParamList = {
 	Pokedex: undefined;
-	PokemonDetail: undefined;
+	PokemonDetail: { id: string; name: string; color: Pokemontypes };
 };
 
 export type FavoriteStackParamList = {
 	Favorites: undefined;
-	FavPokemonDetail: undefined;
+	FavPokemonDetail: { id: string; name: string; color: Pokemontypes };
 };
 
 export type RootTabParamList = {

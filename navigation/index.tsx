@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
+import { backgroundColors } from '../constants/Colors';
 import DetailScreen from '../screens/DetailScreen';
 import FavoriteScreen from '../screens/FavoriteScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -24,9 +25,17 @@ const Stack = createNativeStackNavigator<HomeStackParamList>();
 
 const HomeStack = () => {
 	return (
-		<Stack.Navigator>
-			<Stack.Screen name="Pokedex" component={HomeScreen} />
-			<Stack.Screen name="PokemonDetail" component={DetailScreen} />
+		<Stack.Navigator initialRouteName="Pokedex">
+			<Stack.Screen
+				name="Pokedex"
+				component={HomeScreen}
+				options={{ headerShown: false }}
+			/>
+			<Stack.Screen
+				name="PokemonDetail"
+				component={DetailScreen}
+				options={{ headerShown: false }}
+			/>
 		</Stack.Navigator>
 	);
 };
@@ -35,9 +44,13 @@ const FavoriteStack = createNativeStackNavigator<FavoriteStackParamList>();
 
 const FavStack = () => {
 	return (
-		<FavoriteStack.Navigator>
-			<Stack.Screen name="Favorites" component={FavoriteScreen} />
-			<Stack.Screen name="FavPokemonDetail" component={DetailScreen} />
+		<FavoriteStack.Navigator initialRouteName="Favorites">
+			<FavoriteStack.Screen name="Favorites" component={FavoriteScreen} />
+			<FavoriteStack.Screen
+				name="FavPokemonDetail"
+				component={DetailScreen}
+				options={{ headerShown: false }}
+			/>
 		</FavoriteStack.Navigator>
 	);
 };
