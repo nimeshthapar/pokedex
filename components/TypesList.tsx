@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import { Pokemontypes } from '../model/PokemonDetail';
 import { colors, textColor } from '../constants/Colors';
 import { Icon } from '../hooks/useCachedResources';
@@ -41,7 +41,7 @@ const TypesList = ({
 	);
 };
 
-export default TypesList;
+export default memo(TypesList);
 
 const styles = StyleSheet.create({
 	typeItem: {

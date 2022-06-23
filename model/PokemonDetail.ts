@@ -18,12 +18,21 @@ export type Pokemontypes =
 	| 'steel'
 	| 'water';
 
+export type StatsTypes = {
+	name: 'attack' | 'defense' | 'speed' | 'special-attack' | 'special-defense';
+	value: number;
+};
+
 class Pokemon {
 	constructor(
 		public name: string,
 		public id: string,
 		public types: Pokemontypes[],
-		public image: string
+		public image: string,
+		public stats: StatsTypes[],
+		public ablities: string[],
+		public height: string,
+		public weight: string
 	) {}
 }
 

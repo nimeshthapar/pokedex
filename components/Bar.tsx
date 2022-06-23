@@ -7,10 +7,12 @@ const Bar = ({
 	backgroundColor: bgColor,
 	name,
 	fill,
+	value,
 }: {
 	backgroundColor: Pokemontypes;
 	name: string;
 	fill: number;
+	value: number;
 }) => {
 	return (
 		<>
@@ -26,7 +28,7 @@ const Bar = ({
 					}}
 				></View>
 			</View>
-			<Text>{fill}</Text>
+			<Text>{value}</Text>
 		</>
 	);
 };

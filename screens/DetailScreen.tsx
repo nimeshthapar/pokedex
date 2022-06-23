@@ -18,26 +18,11 @@ import TypesList from '../components/TypesList';
 import BasicTab from '../components/BasicTab';
 import { Pokemontypes } from '../model/PokemonDetail';
 import StatsTab from '../components/StatsTab';
-import EvoltuionTab from '../components/EvoltuionTab';
+import { weaknessConverter } from '../util/weaknessconverter';
 
 const pokemonObj: {
-	name: string;
-	thumbnailimage: string;
-	height: string;
-	weight: string;
-	category: string;
-	id: number;
-	type: Pokemontypes[];
 	weaknesses: Pokemontypes[];
 } = {
-	name: 'Bulbasaur',
-	thumbnailimage:
-		'https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png',
-	height: '0.7 m',
-	weight: '6.9 kg',
-	category: 'Seed',
-	id: 1,
-	type: ['grass', 'poison'],
 	weaknesses: ['fire', 'psychic', 'flying', 'ice'],
 };
 
@@ -49,13 +34,9 @@ const DetailScreen = ({
 	navigation: NativeStackNavigationProp<HomeStackParamList, 'PokemonDetail'>;
 }) => {
 	const [isBasic, setIsBasic] = useState(true);
-	const [isEvolution, setIsEvolution] = useState(false);
 	const [isStats, setIsStats] = useState(false);
 	const bgColor = route.params.color;
-
-	const onTouchTabTextHandler = () => {
-		setIsBasic((prev) => !prev);
-	};
+	const pokemonWeakness = weaknessConverter(route.params.pokemon.types);
 
 	return (
 		<SafeAreaView
@@ -75,10 +56,13 @@ const DetailScreen = ({
 			<View style={styles.pokeContainer}>
 				<View>
 					<Image
-						source={{ uri: pokemonObj.thumbnailimage }}
+						source={{ uri: route.params.pokemon.image }}
 						style={styles.img}
 					/>
-					<TypesList types={pokemonObj.type} center={true} />
+					<TypesList
+						types={route.params.pokemon.types}
+						center={true}
+					/>
 				</View>
 				<Text
 					style={{
@@ -86,16 +70,14 @@ const DetailScreen = ({
 						color: backgroundColors[bgColor],
 					}}
 				>
-					{pokemonObj.name.toUpperCase()}
+					{route.params.name.toUpperCase()}
 				</Text>
 			</View>
 			<View style={styles.tabs}>
 				<TouchableOpacity
 					style={styles.tabBtn}
 					onPress={() => {
-						setIsEvolution(false),
-							setIsStats(false),
-							setIsBasic(true);
+						setIsStats(false), setIsBasic(true);
 					}}
 				>
 					<Text
@@ -111,9 +93,7 @@ const DetailScreen = ({
 				<TouchableOpacity
 					style={styles.tabBtn}
 					onPress={() => {
-						setIsEvolution(false),
-							setIsBasic(false),
-							setIsStats(true);
+						setIsBasic(false), setIsStats(true);
 					}}
 				>
 					<Text
@@ -126,39 +106,23 @@ const DetailScreen = ({
 						Stats
 					</Text>
 				</TouchableOpacity>
-				<TouchableOpacity
-					style={styles.tabBtn}
-					onPress={() => {
-						setIsBasic(false),
-							setIsStats(false),
-							setIsEvolution(true);
-					}}
-				>
-					<Text
-						style={
-							isEvolution
-								? { ...styles.active, color: colors[bgColor] }
-								: styles.tabText
-						}
-					>
-						Evolution
-					</Text>
-				</TouchableOpacity>
 			</View>
 			<ScrollView style={styles.card}>
 				{isBasic && (
 					<BasicTab
-						weakness={pokemonObj.weaknesses}
-						name={pokemonObj.name}
-						category={pokemonObj.category}
+						weakness={pokemonWeakness}
+						name={route.params.name}
+						abilities={route.params.pokemon.ablities}
 						BackgroundColor={bgColor}
-						height={pokemonObj.height}
-						weight={pokemonObj.weight}
+						height={route.params.pokemon.height}
+						weight={route.params.pokemon.weight}
 					/>
 				)}
-				{isStats && <StatsTab backgroundColor={bgColor} />}
-				{isEvolution && (
-					<EvoltuionTab backgroundColor={bgColor} level={16} />
+				{isStats && (
+					<StatsTab
+						backgroundColor={bgColor}
+						stats={route.params.pokemon.stats}
+					/>
 				)}
 			</ScrollView>
 		</SafeAreaView>

@@ -5,10 +5,9 @@ import {
 	Image,
 	TouchableNativeFeedback,
 } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import Pokemon from '../model/PokemonDetail';
-import { backgroundColors, colors, textColor } from '../constants/Colors';
-import { Icon } from '../hooks/useCachedResources';
+import { backgroundColors, textColor } from '../constants/Colors';
 import TypesList from './TypesList';
 
 type PokemonProp = {
@@ -58,7 +57,7 @@ const PokemonCard = ({ pokemon, onPress }: PokemonProp) => {
 	);
 };
 
-export default PokemonCard;
+export default memo(PokemonCard);
 
 const styles = StyleSheet.create({
 	id: {

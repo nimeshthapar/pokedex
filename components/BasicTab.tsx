@@ -9,14 +9,14 @@ const BasicTab = ({
 	weakness,
 	height,
 	weight,
-	category,
+	abilities,
 	name,
 }: {
 	BackgroundColor: Pokemontypes;
 	weakness: Pokemontypes[];
 	height: string;
 	weight: string;
-	category: string;
+	abilities: string[];
 	name: string;
 }) => {
 	return (
@@ -31,15 +31,17 @@ const BasicTab = ({
 				</View>
 				<View style={styles.data}>
 					<Text style={styles.bold}>Weight: </Text>
-					<Text>{weight}</Text>
+					<Text>{weight} kg</Text>
 				</View>
 				<View style={styles.data}>
 					<Text style={styles.bold}>Height: </Text>
-					<Text>{height}</Text>
+					<Text>{height} m</Text>
 				</View>
 				<View style={styles.data}>
 					<Text style={styles.bold}>Category: </Text>
-					<Text>{category}</Text>
+					<Text style={{ textTransform: 'capitalize' }}>
+						{abilities.join(', ')}
+					</Text>
 				</View>
 				<View style={styles.data}>
 					<Text style={styles.bold}>Weakness: </Text>
